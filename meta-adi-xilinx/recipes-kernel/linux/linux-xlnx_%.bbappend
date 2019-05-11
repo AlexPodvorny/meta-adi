@@ -2,12 +2,12 @@ DESCRIPTION = "ADI kernel"
 BRANCH = "master"
 # always use latest source revision
 SRCREV = "${AUTOREV}"
-SRC_URI = "git://github.com/analogdevicesinc/linux.git;protocol=https;branch=${BRANCH}"
+SRC_URI = "git://github.com/AlexPodvorny/linux.git;protocol=https;branch=${BRANCH}"
 KBRANCH = "${BRANCH}"
 PV = "4.14"
 # override kernel config file
 KBUILD_DEFCONFIG_zynq = "zynq_xcomm_adv7511_defconfig"
-KBUILD_DEFCONFIG_zynqmp = "adi_zynqmp_defconfig"
+KBUILD_DEFCONFIG_zynqmp = "bw_zynqmp_defconfig"
 KBUILD_DEFCONFIG_microblaze = "adi_mb_defconfig"
 
 # In adi_mb_defconfig, CONFIG_INITRAMFS_SOURCE is enabled by default.

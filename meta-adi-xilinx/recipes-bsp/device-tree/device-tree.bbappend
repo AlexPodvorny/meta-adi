@@ -23,6 +23,7 @@ SRC_URI += " \
 	file://pl-delete-nodes-zynqmp-zcu102-rev10-fmcdaq2.dtsi \
 	file://pl-delete-nodes-zynqmp-zcu102-rev10-adrv9371.dtsi \
 	file://pl-delete-nodes-zynqmp-zcu102-rev10-ad9361-fmcomms2-3.dtsi \
+	file://pl-delete-nodes-zynqmp-zcu104-rev10-ad9364-fmcomms4.dtsi \
 	file://pl-delete-nodes-zynqmp-zcu102-rev10-ad9361-fmcomms5.dtsi \
 	file://pl-delete-nodes-zynqmp-zcu102-rev10-fmcdaq3.dtsi \
 	file://pl-delete-nodes-fmcdaq2.dtsi \
@@ -61,6 +62,7 @@ SRC_URI += " \
 #	* zynqmp-zcu102-rev10-fmcdaq2
 #	* zynqmp-zcu102-rev10-adrv9371
 #	* zynqmp-zcu102-rev10-ad9361-fmcomms2-3
+#   * zynqmp-zcu104-rev10-ad9364-fmcomms4
 #	* zynqmp-zcu102-rev10-ad9361-fmcomms5
 #	* zynqmp-zcu102-rev10-fmcdaq3
 #  - For microblaze platforms
@@ -73,7 +75,7 @@ SRC_URI += " \
 #	* vc707_fmcdaq2
 #	* vc707_fmcadc2
 #	* vc707_fmcomms2-3
-KERNEL_DTB = "zynq-zed-adv7511-ad9361-fmcomms2-3"
+KERNEL_DTB = "zynqmp-zcu104-rev10-ad9364-fmcomms4"
 
 # used for sanity check
 KERNEL_DTB_SUPPORTED_zynq = "zynq-zed-adv7511-ad9361-fmcomms2-3 \
@@ -97,6 +99,7 @@ KERNEL_DTB_SUPPORTED_zynqmp = "zynqmp-zcu102-rev10-adrv9009 \
 			zynqmp-zcu102-rev10-fmcdaq2 \
 			zynqmp-zcu102-rev10-adrv9371 \
 			zynqmp-zcu102-rev10-ad9361-fmcomms2-3 \
+			zynqmp-zcu104-rev10-ad9364-fmcomms4 \
 			zynqmp-zcu102-rev10-ad9361-fmcomms5 \
 			zynqmp-zcu102-rev10-fmcdaq3"
 KERNEL_DTB_SUPPORTED_microblaze = "kc705_fmcdaq2 \
@@ -175,10 +178,15 @@ do_configure_append() {
 			[ -e "${DTS_INCLUDE_PATH}/zynq.dtsi" ] && {  \
 				sed -i s,[/#]include.*\"zynq-7000.dtsi\",, "${DTS_INCLUDE_PATH}/zynq.dtsi"; }
 		;;
-		"plnx-zynqmp")
+       "plnx-zynqmp")
 			set_common_vars pl-delete-nodes-${KERNEL_DTB}.dtsi "${DTS_INCLUDE_PATH}/zynqmp-zcu102-revA.dts"
 			[ -e "${DTS_INCLUDE_PATH}/zynqmp-zcu102-revA.dts" ] && { \
 				sed -i 's,[/#]include.*\"zynqmp.dtsi\",,;s,[/#]include.*\"zynqmp-clk-ccf.dtsi\",,' "${DTS_INCLUDE_PATH}/zynqmp-zcu102-revA.dts"; }
+		;;
+	    "zcu104-zynqmp")
+			set_common_vars pl-delete-nodes-${KERNEL_DTB}.dtsi "${DTS_INCLUDE_PATH}/zynqmp-zcu104-revC.dts"
+			[ -e "${DTS_INCLUDE_PATH}/zynqmp-zcu104-revC.dts" ] && { \
+				sed -i 's,[/#]include.*\"zynqmp.dtsi\",,;s,[/#]include.*\"zynqmp-clk-ccf.dtsi\",,' "${DTS_INCLUDE_PATH}/zynqmp-zcu104-revC.dts"; }
 		;;
 		"plnx-microblazeel")
 			set_common_vars pl-delete-nodes-${KERNEL_DTB}.dtsi "${WORKDIR}/system-user.dtsi"
